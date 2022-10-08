@@ -20,6 +20,7 @@
       "@/API": ["src/API"],
       "@/components": ["src/components"],
       "@/pages/*": ["pages/*"],
+      "@/store": ["src/store"],
       "@/store/*": ["src/store/*"],
       "@/assets": ["src/assets"],
       "@/styles": ["src/styles"],

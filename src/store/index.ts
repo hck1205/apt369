@@ -6,10 +6,7 @@ import RootReducer from "./modules";
 
 const store = configureStore({
   reducer: RootReducer as any,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ thunk: true, serializableCheck: false }).concat(
-      logger
-    ),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
   devTools: process.env.NODE_ENV !== "production",
 });
 
