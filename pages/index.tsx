@@ -1,24 +1,9 @@
-import type { NextPage } from "next";
-import { setApartmentData } from "@/store/modules/apartment";
-import { useFetchAPTDataMutation } from "@/API";
-import { useEffect } from "react";
+import styled from "@emotion/styled";
 
-const MainPage: NextPage = () => {
-  const [fetchAPTData, { isLoading }] = useFetchAPTDataMutation();
+function MainPage() {
+  return <PageWrapper>test1</PageWrapper>;
+}
 
-  useEffect(() => {
-    fetchAPTData({})
-      .then((response) => {
-        if ("data" in response) {
-          setApartmentData(response.data.newTransactionLogs);
-        }
-      })
-      .catch(console.error);
-  }, []);
-
-  console.log("isLoading", isLoading);
-
-  return <div>test1</div>;
-};
+const PageWrapper = styled.div``;
 
 export default MainPage;
