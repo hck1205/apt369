@@ -1,16 +1,22 @@
 import type { NextPage } from "next";
-
+import { setApartmentData } from "@/store/modules/apartment";
 import { useFetchAPTDataMutation } from "@/API";
 import { useEffect } from "react";
 
 const MainPage: NextPage = () => {
-  const [fetchAPTData] = useFetchAPTDataMutation();
+  const [fetchAPTData, { isLoading }] = useFetchAPTDataMutation();
 
   useEffect(() => {
-    fetchAPTData({}).then((data) => {
-      console.log("data", data);
-    });
+    fetchAPTData({})
+      .then((response) => {
+        if ("data" in response) {
+          setApartmentData(response.data.newTransactionLogs);
+        }
+      })
+      .catch(console.error);
   }, []);
+
+  console.log("isLoading", isLoading);
 
   return <div>test1</div>;
 };

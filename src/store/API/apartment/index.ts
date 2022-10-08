@@ -1,10 +1,14 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import type { TBuilder } from "@/API";
 
-export const apartmentDataApi = createApi({
-  reducerPath: "apartment/api",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://369.kr" }),
-  endpoints: (builder) => ({
-    fetchAPTData: builder.mutation({
+export default (builder: TBuilder) => {
+  return {
+    fetchAPTData: builder.mutation<
+      {
+        newTransactionLogs: Object[];
+        newTransactionLogsCount: number;
+      },
+      Object
+    >({
       query: () => ({
         url: "/new-transaction/getNewTransaction",
         method: "POST",
@@ -21,7 +25,5 @@ export const apartmentDataApi = createApi({
         },
       }),
     }),
-  }),
-});
-
-export const { useFetchAPTDataMutation } = apartmentDataApi;
+  };
+};

@@ -1,12 +1,12 @@
 import { HYDRATE } from "next-redux-wrapper";
 import { AnyAction, CombinedState, combineReducers } from "redux";
 
-import { apartmentDataApi } from "@/API";
+import { apiSlice } from "@/API";
 import { counter } from "./counter";
 
 const combinedReducers = combineReducers({
   counter,
-  [apartmentDataApi.reducerPath]: apartmentDataApi.reducer,
+  [apiSlice.reducerPath]: apiSlice.reducer,
 });
 
 type RootStates = ReturnType<typeof combinedReducers>;

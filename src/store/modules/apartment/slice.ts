@@ -1,15 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { TStoreApartMent } from "./types";
 
 export const name: string = "apartment";
 
-const initialState = {};
+const initialState: TStoreApartMent = {
+  data: [],
+};
 
 const apartmentSlice = createSlice({
   name,
   initialState,
-  reducers: {},
+  reducers: {
+    setApartmentData: (state, action: PayloadAction<Object[]>) => {
+      state.data = action.payload;
+    },
+  },
 });
 
-export const {} = apartmentSlice.actions;
+export const { setApartmentData } = apartmentSlice.actions;
 
 export default apartmentSlice.reducer;
