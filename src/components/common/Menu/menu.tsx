@@ -1,27 +1,37 @@
-import { SmileOutlined } from '@ant-design/icons';
-import { Menu } from 'antd';
+import { SmileOutlined } from "@ant-design/icons";
+import { Menu } from "antd";
 
-const MenuComp = () => {
-  return (
-    <>
-      <Menu
-        items={[
-          {
-            key: '1',
-            label: (
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://www.antgroup.com"
-              >
-                1st menu item
-              </a>
-            ),
-          },
-        ]}
-      />
-    </>
-  );
-};
+export const FirstMenu = (
+  <Menu
+    items={[
+      {
+        key: "firstMenu_1",
+        label: <a href="/">준비중입니다</a>,
+        disabled: true,
+      },
+    ]}
+  />
+);
 
-export default MenuComp;
+export const SecondMenu = (
+  <Menu
+    items={[
+      {
+        key: "secondMenu_1",
+        label: <a href="/">준비중입니다</a>,
+        disabled: true,
+      },
+    ]}
+  />
+);
+
+export const ThirdMenu = (
+  <Menu
+    items={[
+      {
+        key: "thirdMenu_1",
+        label: <a href="/">오늘의 실거래</a>,
+      },
+    ]}
+  />
+);

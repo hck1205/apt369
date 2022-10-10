@@ -2,7 +2,9 @@ import { useEffect } from "react";
 import { setApartmentData } from "@/store/modules/apartment";
 import { useFetchAPTDataMutation } from "@/API";
 
-function ApartmentTable() {
+import { PageWrapper } from "./styles";
+
+function TodaysTransaction() {
   const [fetchAPTData, { isLoading }] = useFetchAPTDataMutation();
 
   useEffect(() => {
@@ -15,7 +17,11 @@ function ApartmentTable() {
       .catch(console.error);
   }, []);
 
-  return isLoading ? <div>Loading</div> : <div>test</div>;
+  return (
+    <PageWrapper>
+      {isLoading ? <div>Loading</div> : <div>test</div>}
+    </PageWrapper>
+  );
 }
 
-export default ApartmentTable;
+export default TodaysTransaction;
