@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
-import { GRAY } from "@/styles";
+import { GRAY } from '@/styles';
 
 export const ComponentWrapper = styled.div`
   border-bottom: 1px solid ${GRAY(50)};
@@ -9,7 +9,7 @@ export const ComponentWrapper = styled.div`
   .menu-wrapper {
     max-width: 1200px;
     height: 55px;
-    margin: auto;
+    margin: auto 10%;
     display: flex;
     align-items: center;
 
