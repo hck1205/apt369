@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
-import { GRAY } from "@/styles";
+import { GRAY } from '@/styles';
 
 export const ComponentWrapper = styled.div`
   border-bottom: 1px solid ${GRAY(50)};
@@ -22,5 +22,6 @@ export const ComponentWrapper = styled.div`
 
   .ant-btn {
     border: none;
+    box-shadow: none;
   }
 `;
