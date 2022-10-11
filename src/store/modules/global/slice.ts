@@ -1,7 +1,8 @@
-import { PAGE_KEYS } from '@/constpack';
-import { createSlice } from '@reduxjs/toolkit';
+import { PAGE_KEYS } from "@/constpack";
+import { createSlice } from "@reduxjs/toolkit";
+import { DEFAULT_FIELDS } from "@/constpack";
 
-export const name: string = 'global';
+export const name: string = "global";
 
 const { APP, TODAYS_TRANSACTION } = PAGE_KEYS;
 
@@ -21,6 +22,24 @@ const globalSlice = createSlice({
   name,
   initialState,
   reducers: {
+    initLocalStorage: (state) => {
+      const data = localStorage.getItem(APP);
+
+      if (data) {
+        console.log("INIT LocalStorage");
+        state.data = JSON.parse(data);
+      } else {
+        const initData = {
+          [TODAYS_TRANSACTION]: {
+            tabs: [1, 2, 3].map((v) => ({
+              id: `${TODAYS_TRANSACTION}_tab_${v}`,
+              alias: "",
+              fields: DEFAULT_FIELDS,
+            })),
+          },
+        };
+      }
+    },
     updateLocalStorage: (state) => {
       const localData = localStorage.getItem(APP);
       const parsedData = localData ? JSON.parse(localData) : { data: {} };
@@ -28,5 +47,7 @@ const globalSlice = createSlice({
     },
   },
 });
+
+export const { initLocalStorage, updateLocalStorage } = globalSlice.actions;
 
 export default globalSlice.reducer;

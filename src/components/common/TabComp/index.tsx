@@ -1,19 +1,16 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { TabPaneProps, Tabs } from 'antd';
-import { Item } from '@/components';
+import { useState } from "react";
+import { Tabs } from "antd";
+import { Item } from "@/components";
 
 type Props = {
   items: Item[];
+  onAdd: Function;
 };
 
-function TabComp({ items }: Props) {
-  const [activeKey, setActiveKey] = useState(items[0].key);
+function TabComp({ items, onAdd }: Props) {
+  const [activeKey, setActiveKey] = useState(items[0] ? items[0].key : "");
 
   const onChange = (newActiveKey: string) => {
-    return;
-  };
-
-  const add = () => {
     return;
   };
 
@@ -21,8 +18,8 @@ function TabComp({ items }: Props) {
     return;
   };
 
-  const onEdit = (targetKey: any, action: 'add' | 'remove') => {
-    action === 'add' ? add() : remove(targetKey);
+  const onEdit = (targetKey: any, action: "add" | "remove") => {
+    action === "add" ? onAdd() : remove(targetKey);
   };
 
   return (

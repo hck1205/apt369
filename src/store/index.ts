@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
 import logger from "redux-logger";
+import { apiSlice } from "@/API";
 
 import RootReducer from "./modules";
 
 const store = configureStore({
   reducer: RootReducer as any,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat([logger, apiSlice.middleware]),
   devTools: process.env.NODE_ENV !== "production",
 });
 

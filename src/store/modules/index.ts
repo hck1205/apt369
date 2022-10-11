@@ -3,9 +3,11 @@ import { AnyAction, CombinedState, combineReducers } from "redux";
 
 import { apiSlice } from "@/API";
 import { counter } from "./counter";
+import { global } from "./global";
 
 const combinedReducers = combineReducers({
   counter,
+  global,
   [apiSlice.reducerPath]: apiSlice.reducer,
 });
 
