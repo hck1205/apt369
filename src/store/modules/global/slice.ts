@@ -26,7 +26,6 @@ const globalSlice = createSlice({
       const data = localStorage.getItem(APP);
 
       if (data) {
-        console.log("INIT LocalStorage");
         state.data = JSON.parse(data);
       } else {
         const initData = {
@@ -38,6 +37,8 @@ const globalSlice = createSlice({
             })),
           },
         };
+
+        state.data = initData;
       }
     },
     updateLocalStorage: (state) => {

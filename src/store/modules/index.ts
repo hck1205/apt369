@@ -4,10 +4,12 @@ import { AnyAction, CombinedState, combineReducers } from "redux";
 import { apiSlice } from "@/API";
 import { counter } from "./counter";
 import { global } from "./global";
+import { apartment } from "./apartment";
 
 const combinedReducers = combineReducers({
   counter,
   global,
+  apartment,
   [apiSlice.reducerPath]: apiSlice.reducer,
 });
 

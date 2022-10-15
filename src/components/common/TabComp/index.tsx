@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Tabs } from "antd";
 import { Item } from "@/components";
 
@@ -9,6 +9,10 @@ type Props = {
 
 function TabComp({ items, onAdd }: Props) {
   const [activeKey, setActiveKey] = useState(items[0] ? items[0].key : "");
+
+  useEffect(() => {
+    setActiveKey(items[0]?.key);
+  }, [items]);
 
   const onChange = (newActiveKey: string) => {
     return;

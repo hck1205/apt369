@@ -20,3 +20,4 @@ export const wrapper = createWrapper(makeStore, {
 });
 
 export type AppDispatch = typeof store.dispatch;
+export type { RootState } from "./modules";
