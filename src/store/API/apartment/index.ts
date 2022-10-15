@@ -9,21 +9,18 @@ export default (builder: TBuilder) => {
       },
       Object
     >({
-      query: () => ({
-        url: "/new-transaction/getNewTransaction",
-        method: "POST",
-        body: {
-          fields: [
-            "deal_amount",
-            "year1_max_gap_amount",
-            "year1_min_gap_amount",
-            "year3_min_gap_amount",
-          ],
-          orderBy: { order: "DESC", sort: "deal_amount" },
-          isWithoutSelf: true,
-          page: 1,
-        },
-      }),
+      query: (params: { fields: string[] }) => {
+        return {
+          url: "/new-transaction/getNewTransaction",
+          method: "POST",
+          body: {
+            fields: params.fields,
+            orderBy: { order: "DESC", sort: "deal_amount" },
+            isWithoutSelf: true,
+            page: 1,
+          },
+        };
+      },
     }),
   };
 };

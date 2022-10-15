@@ -15,6 +15,7 @@ function TabComp({ items, onAdd }: Props) {
   }, [items]);
 
   const onChange = (newActiveKey: string) => {
+    setActiveKey(newActiveKey);
     return;
   };
 

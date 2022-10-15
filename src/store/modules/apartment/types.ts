@@ -1,3 +1,3 @@
-export type TStoreApartMent = {
-  data: Object[];
+export type TStoreApartment = {
+  data: { [key: string]: object[] };
 };

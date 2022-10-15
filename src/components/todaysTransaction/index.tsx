@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { useFetchAPTDataMutation } from "@/API";
 import { useSelector } from "react-redux";
-import { apartment, setApartmentData } from "@/store/modules/apartment";
 import { RootState } from "@/store";
 
 import { TabComp } from "@/components";
@@ -20,19 +18,8 @@ export type Item = Omit<TabPaneProps, "tab"> & {
 
 function TodaysTransaction() {
   const [tabs, setTabs] = useState([]);
-  // const [fetchAPTData, { isLoading }] = useFetchAPTDataMutation();
-  const { data } = useSelector((state: RootState) => state.global);
 
-  // useEffect(() => {
-  //   fetchAPTData({})
-  //     .then((response) => {
-  //       if ("data" in response) {
-  //         console.log("test", response.data.newTransactionLogs);
-  //         setApartmentData(response.data.newTransactionLogs);
-  //       }
-  //     })
-  //     .catch(console.error);
-  // }, [fetchAPTData]);
+  const { data } = useSelector((state: RootState) => state.global);
 
   useEffect(() => {
     const { tabs = [] } = data[TODAYS_TRANSACTION];
@@ -45,8 +32,8 @@ function TodaysTransaction() {
 
       return {
         label: alias || `기본 ${index + 1}`,
-        key: `${TODAYS_TRANSACTION}_${index}`,
-        children: <TableComp fields={fields} />,
+        key: id,
+        children: <TableComp id={id} fields={fields} />,
         closable: false,
       };
     });
