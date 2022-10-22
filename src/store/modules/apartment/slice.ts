@@ -1,6 +1,5 @@
-import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "@/store";
-import { TStoreApartment } from "./types";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { TStoreApartment, TodaysTransactionInfo } from "./types";
 
 export const name: string = "apartment";
 
@@ -14,7 +13,7 @@ const apartmentSlice = createSlice({
   reducers: {
     setApartmentData: (
       state,
-      action: PayloadAction<{ id: string; value: object[] }>
+      action: PayloadAction<{ id: string; value: TodaysTransactionInfo[] }>
     ) => {
       const { id, value } = action.payload;
 

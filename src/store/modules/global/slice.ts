@@ -1,6 +1,6 @@
 import { PAGE_KEYS } from "@/constpack";
 import { createSlice } from "@reduxjs/toolkit";
-import { DEFAULT_FIELDS } from "@/constpack";
+import { DEFAULT_FIELDS_TODAYS_TRANSACTION } from "@/constpack";
 
 export const name: string = "global";
 
@@ -33,7 +33,7 @@ const globalSlice = createSlice({
             tabs: [1, 2, 3].map((v) => ({
               id: `${TODAYS_TRANSACTION}_tab_${v}`,
               alias: "",
-              fields: DEFAULT_FIELDS,
+              fields: DEFAULT_FIELDS_TODAYS_TRANSACTION,
             })),
           },
         };

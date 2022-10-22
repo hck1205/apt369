@@ -1,10 +1,11 @@
 import type { TBuilder } from "@/API";
+import type { TodaysTransactionInfo } from "@/store/modules/apartment";
 
 export default (builder: TBuilder) => {
   return {
     fetchAPTData: builder.mutation<
       {
-        newTransactionLogs: Object[];
+        newTransactionLogs: TodaysTransactionInfo[];
         newTransactionLogsCount: number;
       },
       Object
