@@ -1,3 +1,4 @@
+import { RegionSelect } from "@/components";
 import * as S from "./styles";
 
 import type { TabData } from "../index";
@@ -14,9 +15,10 @@ function ConfigSetting({ tabData, index }: Props) {
 
   return (
     <S.CompWrapper>
-      <div>
+      <S.SettingWrapper>
         <h1>{`${pageName} 페이지 설정`}</h1>
-      </div>
+        <RegionSelect />
+      </S.SettingWrapper>
     </S.CompWrapper>
   );
 }

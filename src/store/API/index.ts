@@ -8,7 +8,7 @@ import {
   FetchBaseQueryMeta,
 } from "@reduxjs/toolkit/query/react";
 
-import getApartmentAPI from "./apartment";
+import { apartmentAPI } from "./apartment";
 
 export type TBuilder = EndpointBuilder<
   BaseQueryFn<
@@ -26,12 +26,10 @@ export const apiSlice = createApi({
   reducerPath: "apiSlice",
   baseQuery: fetchBaseQuery({ baseUrl: "https://369.kr" }),
   endpoints: (builder) => {
-    const apartment = getApartmentAPI(builder);
-
     return {
-      ...apartment,
+      ...apartmentAPI(builder),
     };
   },
 });
 
-export const { useFetchAPTDataMutation } = apiSlice;
+export const { useFetchAPTDataMutation, useFetchRegionDataMutation } = apiSlice;
