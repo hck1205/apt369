@@ -16,6 +16,12 @@ export type Item = Omit<TabPaneProps, "tab"> & {
   label: React.ReactNode;
 };
 
+export type TabData = {
+  alias: string;
+  fields: string[];
+  id: string;
+};
+
 function TodaysTransaction() {
   const [tabs, setTabs] = useState([]);
 
@@ -28,30 +34,24 @@ function TodaysTransaction() {
 
   const tabItems = () =>
     tabs.map((data, index) => {
-      const { alias, fields, id } = data;
+      const { alias, id } = data;
 
       return {
         label: alias || `기본 ${index + 1}`,
         key: id,
-        children: <TableComp id={id} fields={fields} />,
+        children: <TableComp tabData={data} index={index} />,
         closable: false,
       };
     });
 
   return (
     <PageWrapper>
-      {/* {isLoading ? (
-        <div>Loading</div>
-      ) : ( */}
-      <div>
-        <TabComp
-          items={tabItems()}
-          onAdd={() => {
-            console.log("add");
-          }}
-        />
-      </div>
-      {/* )} */}
+      <TabComp
+        items={tabItems()}
+        onAdd={() => {
+          console.log("add");
+        }}
+      />
     </PageWrapper>
   );
 }

@@ -38,8 +38,8 @@ main {
    */
 
 h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
+  font-size: 1em;
+  margin: 0;
 }
 
 /* Grouping content
@@ -192,6 +192,12 @@ button,
 select {
   /* 1 */
   text-transform: none;
+}
+
+ul,
+li {
+  list-style: none;
+  padding: 0;
 }
 
 /**

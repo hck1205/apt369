@@ -1,65 +1,59 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useFetchAPTDataMutation } from "@/API";
 
-import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store";
+import { useDispatch, useSelector } from "react-redux";
 import { setApartmentData } from "@/store/modules/apartment";
-import { addSticky } from "@/utils";
+
+import TableHeader from "../tableHeader";
+import ConfigSetting from "../configSetting";
+
+import type { TabData } from "../index";
 
 import * as S from "./styles";
 
 type Props = {
-  id: string;
-  fields: string[];
+  tabData: TabData;
+  index: number;
 };
 
-function TodaysTransactionTable({ id, fields }: Props) {
+function TodaysTransactionTable({ tabData, index }: Props) {
   const dispatch = useDispatch();
-  const fixedHeader = useRef<HTMLDivElement>(null);
 
   const [fetchAPTData, { isLoading }] = useFetchAPTDataMutation();
 
   const apartmentData = useSelector((state: RootState) => state.apartment.data);
-  const data = useMemo(() => apartmentData[id], [apartmentData]);
+  const data = useMemo(() => apartmentData[tabData.id], [apartmentData]);
+
+  const [settingMode, setSettingMode] = useState<Boolean>(true);
 
   useEffect(() => {
-    fetchAPTData({ fields })
+    fetchAPTData({ fields: tabData.fields })
       .then((response) => {
         if ("data" in response) {
           const value = response.data.newTransactionLogs;
 
-          dispatch(setApartmentData({ id, value }));
+          dispatch(setApartmentData({ id: tabData.id, value }));
         }
       })
       .catch(console.error);
-  }, [fields, fetchAPTData]);
+  }, [tabData.fields, fetchAPTData]);
 
-  useEffect(() => {
-    const stickyElTopVal =
-      fixedHeader.current?.getBoundingClientRect().top || 0;
-
-    window.addEventListener("scroll", addSticky(fixedHeader, stickyElTopVal));
-
-    return () => {
-      window.removeEventListener(
-        "mousemove",
-        addSticky(fixedHeader, stickyElTopVal)
-      );
-    };
-  }, []);
-
-  console.log("data", data);
-
-  return (
-    <>
-      {isLoading ? (
-        <S.CompWrapper>Loading</S.CompWrapper>
-      ) : (
-        <S.CompWrapper>
+  if (settingMode) {
+    return (
+      <S.CompWrapper>
+        <ConfigSetting tabData={tabData} index={index} />
+      </S.CompWrapper>
+    );
+  } else {
+    return (
+      <S.CompWrapper>
+        {isLoading ? (
+          <div>loading</div>
+        ) : (
           <S.TableWrapper fixedTopValue={1}>
-            <div className="table--header" ref={fixedHeader}>
-              header
-            </div>
+            <TableHeader />
+
             <ul>
               {data &&
                 data.map((info, i) => {
@@ -81,10 +75,10 @@ function TodaysTransactionTable({ id, fields }: Props) {
                 })}
             </ul>
           </S.TableWrapper>
-        </S.CompWrapper>
-      )}
-    </>
-  );
+        )}
+      </S.CompWrapper>
+    );
+  }
 }
 
 export default TodaysTransactionTable;

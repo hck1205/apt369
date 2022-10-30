@@ -6,15 +6,9 @@ export const CompWrapper = styled.div`
 `;
 
 export const TableWrapper = styled.div<{ fixedTopValue: number | undefined }>`
-  .table--header {
-    height: 50px;
-    background-color: #cbcbf9;
-  }
-
   ul > li {
-    list-style: none;
     display: flex;
-    margin: 15px 0;
+    margin: 15px 15px;
     gap: 20px;
   }
 `;
