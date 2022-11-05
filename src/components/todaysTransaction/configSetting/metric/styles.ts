@@ -10,6 +10,10 @@ export const MetricSelectWrapper = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 15px;
 
+  @media (max-width: 700px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
   .row {
     display: flex;
     justify-content: flex-start;

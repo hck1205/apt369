@@ -41,13 +41,13 @@ function TodaysTransactionTable({ tabData, index }: Props) {
 
   if (settingMode) {
     return (
-      <S.CompWrapper>
+      <S.ComponentWrapper>
         <ConfigSetting tabData={tabData} index={index} />
-      </S.CompWrapper>
+      </S.ComponentWrapper>
     );
   } else {
     return (
-      <S.CompWrapper>
+      <S.ComponentWrapper>
         {isLoading ? (
           <div>loading</div>
         ) : (
@@ -76,7 +76,7 @@ function TodaysTransactionTable({ tabData, index }: Props) {
             </ul>
           </S.TableWrapper>
         )}
-      </S.CompWrapper>
+      </S.ComponentWrapper>
     );
   }
 }

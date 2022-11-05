@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const CompWrapper = styled.div`
+export const ComponentWrapper = styled.div`
   border: 1px solid #f0f0f0;
   border-top: none;
 `;
