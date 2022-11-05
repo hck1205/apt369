@@ -1,5 +1,7 @@
 export { default as LayoutComponent } from "./Layout";
 export { default as Menu } from "./Menu";
 export { default as TabComp } from "./TabComp";
-export { default as RegionSelect } from "./RegionSelect";
-export { default as Notification, NotificationType } from "./Notification";
+export { default as RegionSelector } from "./RegionSelector";
+export { default as MetricSelector } from "./MetricSelector";
+export { default as Notification } from "./Notification";
+export type { NotificationType } from "./Notification";

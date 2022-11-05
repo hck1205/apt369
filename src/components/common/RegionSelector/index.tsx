@@ -8,7 +8,11 @@ import { useFetchRegionDataMutation } from "@/API";
 
 import { Notification } from "@/components";
 
-import * as S from "./styles";
+import { ComponentWrapper } from "./styles";
+
+type Props = {
+  onSelect: (value: string | number) => void;
+};
 
 const convertedRegions: DefaultOptionType[] = REGION_LIST.map(
   ({ code, name }) => ({
@@ -18,7 +22,7 @@ const convertedRegions: DefaultOptionType[] = REGION_LIST.map(
   })
 );
 
-function RegionSelectBox() {
+function RegionSelectBox({ onSelect }: Props) {
   const [fetchRegionData, { isLoading }] = useFetchRegionDataMutation();
 
   const [options, setOptions] = useState<DefaultOptionType[]>(convertedRegions);
@@ -34,8 +38,8 @@ function RegionSelectBox() {
         if ("data" in response) {
           if (response.data.locations.length > 0) {
             const nextChildOptions = response.data.locations.map(
-              ({ locatadd_nm, region_cd }) => {
-                return { value: region_cd, label: locatadd_nm, isLeaf: false };
+              ({ locallow_nm, region_cd }) => {
+                return { value: region_cd, label: locallow_nm, isLeaf: false };
               }
             );
 
@@ -59,18 +63,21 @@ function RegionSelectBox() {
     value: SingleValueType,
     selectedOptions: DefaultOptionType[]
   ) => {
-    console.log(value, selectedOptions);
+    const lastElementIndex = value.length - 1;
+    onSelect(value[lastElementIndex]);
   };
 
   return (
-    <S.CompWrapper>
+    <ComponentWrapper>
       <Cascader
         options={options}
         loadData={loadData}
         onChange={onChange}
+        displayRender={(label) => label.join(" ")}
+        placeholder="지역을 선택해 주세요."
         changeOnSelect
       />
-    </S.CompWrapper>
+    </ComponentWrapper>
   );
 }
 

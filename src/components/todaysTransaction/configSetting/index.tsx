@@ -1,4 +1,6 @@
-import { RegionSelect } from "@/components";
+import Metric from "./metric";
+import Region from "./region";
+
 import * as S from "./styles";
 
 import type { TabData } from "../index";
@@ -14,12 +16,14 @@ function ConfigSetting({ tabData, index }: Props) {
   const pageName = alias || `기본 ${index + 1}`;
 
   return (
-    <S.CompWrapper>
+    <S.ComponentWrapper>
+      <h1>{`${pageName} 페이지 설정`}</h1>
+
       <S.SettingWrapper>
-        <h1>{`${pageName} 페이지 설정`}</h1>
-        <RegionSelect />
+        <Metric />
+        <Region />
       </S.SettingWrapper>
-    </S.CompWrapper>
+    </S.ComponentWrapper>
   );
 }
 
