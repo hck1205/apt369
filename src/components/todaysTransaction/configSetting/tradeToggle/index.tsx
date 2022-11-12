@@ -2,14 +2,17 @@ import { CommonToggle } from "@/components";
 
 import * as S from "./styles";
 
-function TradeToggle() {
+type Props = {
+  isDirectTradeExcluded: boolean;
+  onUpdateTradeToggle: (toogle: boolean) => void;
+};
+
+function TradeToggle({ isDirectTradeExcluded, onUpdateTradeToggle }: Props) {
   return (
     <S.ComponentWrapper>
       <CommonToggle
-        defaultChecked={true}
-        onChange={(v) => {
-          console.log("v", v);
-        }}
+        defaultChecked={isDirectTradeExcluded}
+        onChange={onUpdateTradeToggle}
       />
     </S.ComponentWrapper>
   );

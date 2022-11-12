@@ -30,10 +30,13 @@ const globalSlice = createSlice({
       } else {
         const initData = {
           [TODAYS_TRANSACTION]: {
-            tabs: [1, 2, 3].map((v) => ({
-              id: `${TODAYS_TRANSACTION}_tab_${v}`,
+            tabs: [...Array(3)].map((_, i) => ({
+              id: `${TODAYS_TRANSACTION}_tab_${i + 1}`,
               alias: "",
-              fields: DEFAULT_FIELDS_TODAYS_TRANSACTION,
+              fields: [
+                ...DEFAULT_FIELDS_TODAYS_TRANSACTION,
+                ...Array(10 - DEFAULT_FIELDS_TODAYS_TRANSACTION.length),
+              ],
             })),
           },
         };

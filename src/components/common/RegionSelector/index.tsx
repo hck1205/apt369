@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Cascader } from "antd";
 import { SingleValueType } from "rc-cascader/lib/Cascader";
 import { DefaultOptionType } from "antd/lib/cascader";
@@ -11,7 +11,7 @@ import { Notification } from "@/components";
 import { ComponentWrapper } from "./styles";
 
 type Props = {
-  onSelect: (value: string | number) => void;
+  onSelect: (value: string[]) => void;
 };
 
 const convertedRegions: DefaultOptionType[] = REGION_LIST.map(
@@ -23,6 +23,7 @@ const convertedRegions: DefaultOptionType[] = REGION_LIST.map(
 );
 
 function RegionSelectBox({ onSelect }: Props) {
+  const cascaderRef = useRef(null);
   const [fetchRegionData, { isLoading }] = useFetchRegionDataMutation();
 
   const [options, setOptions] = useState<DefaultOptionType[]>(convertedRegions);
@@ -63,13 +64,18 @@ function RegionSelectBox({ onSelect }: Props) {
     value: SingleValueType,
     selectedOptions: DefaultOptionType[]
   ) => {
-    const lastElementIndex = value.length - 1;
-    onSelect(value[lastElementIndex]);
+    let accLabel = "";
+    selectedOptions.forEach(({ label }) => {
+      accLabel += ` ${label}`;
+    });
+
+    onSelect(value as string[]);
   };
 
   return (
     <ComponentWrapper>
       <Cascader
+        ref={cascaderRef}
         options={options}
         loadData={loadData}
         onChange={onChange}

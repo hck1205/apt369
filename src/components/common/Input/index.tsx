@@ -1,14 +1,17 @@
 import { Input } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as S from "./styles";
 
 type Props = {
   defaultValue: string;
   placeholder: string;
+  onUpdate: (value: string) => void;
 };
 
-function CommonInput({ defaultValue, placeholder }: Props) {
+function CommonInput({ defaultValue, placeholder, onUpdate }: Props) {
   const [value, setValue] = useState<string>("");
+
+  useEffect(() => onUpdate(value), [value]);
 
   return (
     <S.ComponentWrapper>

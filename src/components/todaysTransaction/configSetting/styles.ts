@@ -46,3 +46,20 @@ export const TradeToggleWrapper = styled.div`
 export const ConfigTitle = styled.div`
   margin: 10px 0;
 `;
+
+export const Bottom = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .ant-btn {
+    &.cancel-btn {
+      margin-right: 10px;
+    }
+  }
+`;

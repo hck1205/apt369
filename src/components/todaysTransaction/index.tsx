@@ -17,9 +17,11 @@ export type Item = Omit<TabPaneProps, "tab"> & {
 };
 
 export type TabData = {
+  id: string;
   alias: string;
   fields: string[];
-  id: string;
+  regionCodes: string[][];
+  isWithoutSelf: boolean;
 };
 
 function TodaysTransaction() {

@@ -7,13 +7,20 @@ import { useEffect, useState } from "react";
 import { ConfigTitle } from "../styles";
 
 type Props = {
-  updateRegionCode: (value: (string | number)[]) => void;
+  onUpdateRegionCode: (value: string[][]) => void;
+  regionCodeList: string[][];
 };
 
-function Region({ updateRegionCode }: Props) {
-  const [regionCodeList, setRegionCodeList] = useState<(string | number)[]>([]);
+function Region({
+  onUpdateRegionCode,
+  regionCodeList: savedRegionCodeList,
+}: Props) {
+  const [regionCodeList, setRegionCodeList] =
+    useState<string[][]>(savedRegionCodeList);
 
-  useEffect(() => {}, [regionCodeList]);
+  useEffect(() => {
+    onUpdateRegionCode(regionCodeList);
+  }, [regionCodeList]);
 
   return (
     <ComponentWrapper>
