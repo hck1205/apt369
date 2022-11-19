@@ -3,13 +3,15 @@ import { SettingOutlined } from "@ant-design/icons";
 import { addSticky } from "@/utils";
 
 import * as S from "./styles";
+import { ALL_FIELDS_FOR_TODAYS_TRANSACTION } from "@/constpack";
 
 const stickyWidthSize = "calc(100% - 20vw)";
 
 type Props = {
+  fields: string[];
   onGearClick: () => void;
 };
-function TableHeader({ onGearClick }: Props) {
+function TableHeader({ onGearClick, fields }: Props) {
   const fixedHeader = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -32,11 +34,25 @@ function TableHeader({ onGearClick }: Props) {
   return (
     <S.CompWrapper>
       <S.HeaderWrapper ref={fixedHeader}>
-        <div className="total">Total</div>
+        <S.TotalAndGearWrapper>
+          <div className="total">Total</div>
 
-        <div className="option" onClick={() => onGearClick()}>
-          <SettingOutlined />
-        </div>
+          <div className="option" onClick={() => onGearClick()}>
+            <SettingOutlined />
+          </div>
+        </S.TotalAndGearWrapper>
+
+        <S.Header>
+          <div className="apt-wrapper">아파트 정보</div>
+
+          <div className="metric-wrapper">
+            {fields.map((field) => {
+              return (
+                <div>{ALL_FIELDS_FOR_TODAYS_TRANSACTION[field].label}</div>
+              );
+            })}
+          </div>
+        </S.Header>
       </S.HeaderWrapper>
     </S.CompWrapper>
   );

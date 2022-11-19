@@ -24,11 +24,15 @@ function TodaysTransactionTable({ tabData, index }: Props) {
 
   const apartmentData = useSelector((state: RootState) => state.apartment.data);
   const data = useMemo(() => apartmentData[tabData.id], [apartmentData]);
+  const filteredFields = useMemo(
+    () => tabData.fields.filter(Boolean),
+    [tabData.fields]
+  );
 
   const [settingMode, setSettingMode] = useState<Boolean>(false);
 
   useEffect(() => {
-    fetchAPTData({ fields: tabData.fields })
+    fetchAPTData({ fields: filteredFields })
       .then((response) => {
         if ("data" in response) {
           const value = response.data.newTransactionLogs;
@@ -57,6 +61,7 @@ function TodaysTransactionTable({ tabData, index }: Props) {
         ) : (
           <S.TableWrapper fixedTopValue={1}>
             <TableHeader
+              fields={filteredFields}
               onGearClick={() => {
                 setSettingMode(true);
               }}
@@ -75,8 +80,13 @@ function TodaysTransactionTable({ tabData, index }: Props) {
                         <p className="apt-deal-info">{`${apartment.build_year} / ${transaction.area_for_exclusive_use} / ${transaction.floor}`}</p>
                         <p>{`${transaction.deal_date} / ${transaction.req_gbn}`}</p>
                       </S.ApartmentInfoWrapper>
+
                       <S.FieldInfo>
-                        <span>Metric Info</span>
+                        <div>
+                          {filteredFields.map((field) => {
+                            return <div>{field}</div>;
+                          })}
+                        </div>
                       </S.FieldInfo>
                     </li>
                   );

@@ -18,6 +18,7 @@ function MetricSelector({ metric, onUpdate }: Props) {
         placeholder="지표선택"
         onChange={onUpdate}
         showSearch
+        allowClear
       />
     </ComponentWrapper>
   );

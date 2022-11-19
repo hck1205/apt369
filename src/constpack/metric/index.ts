@@ -51,7 +51,12 @@ export const ALL_METRIC_LIST = [
   "total_min_gap_percentage_raw",
 ];
 
-export const ALL_FIELDS_FOR_TODAYS_TRANSACTION = {
+export const ALL_FIELDS_FOR_TODAYS_TRANSACTION: {
+  [key: string]: {
+    value: string;
+    label: string;
+  };
+} = {
   deal_amount: {
     value: "deal_amount",
     label: "거래가격",

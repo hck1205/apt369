@@ -14,6 +14,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { deepCopy } from "@/utils";
 import { Notification } from "@/components";
+import { useDispatch } from "react-redux";
+import { updateLocalStorage } from "@/store/modules/global";
 
 type Props = {
   tabData: TabData;
@@ -22,6 +24,7 @@ type Props = {
 };
 
 function ConfigSetting({ onBack, tabData, index }: Props) {
+  const dispatch = useDispatch();
   const { data } = useSelector((state: RootState) => state.global);
 
   const [currentTabData, setCurrentTabData] = useState<TabData>(tabData);
@@ -30,12 +33,13 @@ function ConfigSetting({ onBack, tabData, index }: Props) {
 
   const pageName = alias || `기본 ${index + 1}`;
 
-  const saveDataInLocalStorage = () => {
+  const saveDataInLocalStorage = async () => {
     if (currentTabData) {
       let copiedData = deepCopy(data);
       copiedData[PAGE_KEYS.TODAYS_TRANSACTION]["tabs"][index] = currentTabData;
       localStorage.setItem(PAGE_KEYS.APP, JSON.stringify(copiedData));
 
+      await dispatch(updateLocalStorage());
       Notification({
         type: "success",
         message: "",
