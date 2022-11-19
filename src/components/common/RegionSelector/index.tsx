@@ -11,7 +11,9 @@ import { Notification } from "@/components";
 import { ComponentWrapper } from "./styles";
 
 type Props = {
-  onSelect: (value: string[]) => void;
+  regionName: string;
+  regionCode: number[];
+  onSelect: ({ key, value }: { key: string; value: number[] }) => void;
 };
 
 const convertedRegions: DefaultOptionType[] = REGION_LIST.map(
@@ -22,7 +24,7 @@ const convertedRegions: DefaultOptionType[] = REGION_LIST.map(
   })
 );
 
-function RegionSelectBox({ onSelect }: Props) {
+function RegionSelectBox({ regionName, regionCode, onSelect }: Props) {
   const cascaderRef = useRef(null);
   const [fetchRegionData, { isLoading }] = useFetchRegionDataMutation();
 
@@ -49,7 +51,7 @@ function RegionSelectBox({ onSelect }: Props) {
             Notification({
               type: "warning",
               message: "",
-              description: "이미 최소 단위의 지역입니다.",
+              description: "최소 단위의 지역입니다.",
             });
             targetOption.isLeaf = true;
           }
@@ -69,7 +71,7 @@ function RegionSelectBox({ onSelect }: Props) {
       accLabel += ` ${label}`;
     });
 
-    onSelect(value as string[]);
+    onSelect({ key: accLabel, value: value as number[] });
   };
 
   return (
@@ -79,8 +81,9 @@ function RegionSelectBox({ onSelect }: Props) {
         options={options}
         loadData={loadData}
         onChange={onChange}
-        displayRender={(label) => label.join(" ")}
+        displayRender={(label) => regionName}
         placeholder="지역을 선택해 주세요."
+        value={regionCode}
         changeOnSelect
       />
     </ComponentWrapper>

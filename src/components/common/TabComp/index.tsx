@@ -5,6 +5,7 @@ import { Item } from "@/components";
 type Props = {
   items: Item[];
   onAdd: Function;
+  // beforeChange: () => void;
 };
 
 function TabComp({ items, onAdd }: Props) {

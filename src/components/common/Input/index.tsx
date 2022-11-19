@@ -9,9 +9,11 @@ type Props = {
 };
 
 function CommonInput({ defaultValue, placeholder, onUpdate }: Props) {
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>(defaultValue);
 
-  useEffect(() => onUpdate(value), [value]);
+  useEffect(() => {
+    onUpdate(value);
+  }, [value]);
 
   return (
     <S.ComponentWrapper>
@@ -19,7 +21,10 @@ function CommonInput({ defaultValue, placeholder, onUpdate }: Props) {
         defaultValue={defaultValue}
         value={value}
         placeholder={placeholder}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => {
+          e.stopPropagation();
+          setValue(e.target.value);
+        }}
         allowClear
       />
     </S.ComponentWrapper>

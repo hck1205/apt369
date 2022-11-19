@@ -25,7 +25,7 @@ function TodaysTransactionTable({ tabData, index }: Props) {
   const apartmentData = useSelector((state: RootState) => state.apartment.data);
   const data = useMemo(() => apartmentData[tabData.id], [apartmentData]);
 
-  const [settingMode, setSettingMode] = useState<Boolean>(true);
+  const [settingMode, setSettingMode] = useState<Boolean>(false);
 
   useEffect(() => {
     fetchAPTData({ fields: tabData.fields })
@@ -42,7 +42,11 @@ function TodaysTransactionTable({ tabData, index }: Props) {
   if (settingMode) {
     return (
       <S.ComponentWrapper>
-        <ConfigSetting tabData={tabData} index={index} />
+        <ConfigSetting
+          onBack={() => setSettingMode(false)}
+          tabData={tabData}
+          index={index}
+        />
       </S.ComponentWrapper>
     );
   } else {
@@ -52,7 +56,11 @@ function TodaysTransactionTable({ tabData, index }: Props) {
           <div>loading</div>
         ) : (
           <S.TableWrapper fixedTopValue={1}>
-            <TableHeader />
+            <TableHeader
+              onGearClick={() => {
+                setSettingMode(true);
+              }}
+            />
 
             <ul>
               {data &&

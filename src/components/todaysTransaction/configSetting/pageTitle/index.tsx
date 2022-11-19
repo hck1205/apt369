@@ -18,9 +18,9 @@ function PageTitle({ alias, onUpdateTitle }: Props) {
   return (
     <S.ComponentWrapper>
       <CommonInput
-        defaultValue=""
+        defaultValue={title}
         placeholder="페이지 이름"
-        onUpdate={setTitle}
+        onUpdate={(title) => setTitle(title)}
       />
     </S.ComponentWrapper>
   );

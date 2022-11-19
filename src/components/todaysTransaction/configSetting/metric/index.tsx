@@ -29,11 +29,14 @@ function Field({ metrics: savedMetrics, onMetricsUpdate }: Props) {
         {metrics.map((metric, index) => (
           <div key={`metric-selector-${index}`} className="row">
             <span className="number">{index + 1}</span>
+
             <MetricSelector
               metric={metric}
               onUpdate={(value) => {
-                metrics[index] = value;
-                setMetrics([...metrics]);
+                const copiedMetrics = [...metrics];
+                copiedMetrics[index] = value;
+
+                setMetrics(copiedMetrics);
               }}
             />
           </div>

@@ -10,13 +10,20 @@ import * as S from "./styles";
 import type { TabData } from "../index";
 import { Button } from "antd";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
+import { deepCopy } from "@/utils";
+import { Notification } from "@/components";
 
 type Props = {
   tabData: TabData;
   index: number;
+  onBack: () => void;
 };
 
-function ConfigSetting({ tabData, index }: Props) {
+function ConfigSetting({ onBack, tabData, index }: Props) {
+  const { data } = useSelector((state: RootState) => state.global);
+
   const [currentTabData, setCurrentTabData] = useState<TabData>(tabData);
 
   const { id, fields, alias, regionCodes = [], isWithoutSelf } = currentTabData;
@@ -25,7 +32,15 @@ function ConfigSetting({ tabData, index }: Props) {
 
   const saveDataInLocalStorage = () => {
     if (currentTabData) {
-      localStorage.setItem(PAGE_KEYS.APP, JSON.stringify(currentTabData));
+      let copiedData = deepCopy(data);
+      copiedData[PAGE_KEYS.TODAYS_TRANSACTION]["tabs"][index] = currentTabData;
+      localStorage.setItem(PAGE_KEYS.APP, JSON.stringify(copiedData));
+
+      Notification({
+        type: "success",
+        message: "",
+        description: "저장 되었습니다.",
+      });
     }
   };
 
@@ -51,6 +66,7 @@ function ConfigSetting({ tabData, index }: Props) {
       <S.SettingWrapper>
         <S.TitleSectionWrapper>
           <S.ConfigTitle>페이지 이름</S.ConfigTitle>
+
           <PageTitle
             alias={alias}
             onUpdateTitle={(title) => {
@@ -105,7 +121,7 @@ function ConfigSetting({ tabData, index }: Props) {
             <Button
               className="cancel-btn"
               onClick={() => {
-                console.log("go back to table");
+                onBack();
               }}
             >
               돌아가기

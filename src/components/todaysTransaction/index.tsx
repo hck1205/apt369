@@ -20,11 +20,15 @@ export type TabData = {
   id: string;
   alias: string;
   fields: string[];
-  regionCodes: string[][];
+  regionCodes: { key: string; value: number[] }[];
   isWithoutSelf: boolean;
 };
 
-function TodaysTransaction() {
+type Props = {
+  onBeforeChange: () => void;
+};
+
+function TodaysTransaction({ onBeforeChange }: Props) {
   const [tabs, setTabs] = useState([]);
 
   const { data } = useSelector((state: RootState) => state.global);

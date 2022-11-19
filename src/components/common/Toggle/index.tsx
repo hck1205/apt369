@@ -10,12 +10,7 @@ type Props = {
 function Toggle({ defaultChecked, onChange }: Props) {
   return (
     <S.ComponentWrapper>
-      <Switch
-        defaultChecked
-        onChange={(v) => {
-          console.log("v", v);
-        }}
-      />
+      <Switch defaultChecked={defaultChecked} onChange={onChange} />
     </S.ComponentWrapper>
   );
 }

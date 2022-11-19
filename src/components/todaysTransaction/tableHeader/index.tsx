@@ -6,7 +6,10 @@ import * as S from "./styles";
 
 const stickyWidthSize = "calc(100% - 20vw)";
 
-function TableHeader() {
+type Props = {
+  onGearClick: () => void;
+};
+function TableHeader({ onGearClick }: Props) {
   const fixedHeader = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -30,7 +33,8 @@ function TableHeader() {
     <S.CompWrapper>
       <S.HeaderWrapper ref={fixedHeader}>
         <div className="total">Total</div>
-        <div className="option">
+
+        <div className="option" onClick={() => onGearClick()}>
           <SettingOutlined />
         </div>
       </S.HeaderWrapper>

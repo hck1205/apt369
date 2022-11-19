@@ -5,18 +5,20 @@ import { ComponentWrapper, RegionSelectWrapper } from "./styles";
 import { useEffect, useState } from "react";
 
 import { ConfigTitle } from "../styles";
+import { deepCopy } from "@/utils";
 
 type Props = {
-  onUpdateRegionCode: (value: string[][]) => void;
-  regionCodeList: string[][];
+  onUpdateRegionCode: ([{ key, value }]: { key: any; value: any }[]) => void;
+  regionCodeList: { key: string; value: number[] }[];
 };
 
 function Region({
   onUpdateRegionCode,
   regionCodeList: savedRegionCodeList,
 }: Props) {
+  console.log("savedRegionCodeList", savedRegionCodeList);
   const [regionCodeList, setRegionCodeList] =
-    useState<string[][]>(savedRegionCodeList);
+    useState<{ key: string; value: number[] }[]>(savedRegionCodeList);
 
   useEffect(() => {
     onUpdateRegionCode(regionCodeList);
@@ -27,18 +29,35 @@ function Region({
       <ConfigTitle>지역선택</ConfigTitle>
 
       <RegionSelectWrapper>
-        {[...Array(5)].map((_, index) => (
-          <div key={`region-selector-${index}`} className="row">
-            <span className="number">{index + 1}</span>
+        {[...Array(5)].map((_, index) => {
+          const { key = "", value = [] } = regionCodeList[index] || {
+            key: "",
+            value: [],
+          };
 
-            <RegionSelector
-              onSelect={(value) => {
-                regionCodeList[index] = value;
-                setRegionCodeList([...regionCodeList]);
-              }}
-            />
-          </div>
-        ))}
+          return (
+            <div key={`region-selector-${index}`} className="row">
+              <span className="number">{index + 1}</span>
+
+              <RegionSelector
+                regionName={key}
+                regionCode={value}
+                onSelect={({ key, value }) => {
+                  let copiedData = deepCopy(
+                    regionCodeList
+                  ) as typeof regionCodeList;
+
+                  copiedData[index] = {
+                    key,
+                    value,
+                  };
+
+                  setRegionCodeList(copiedData);
+                }}
+              />
+            </div>
+          );
+        })}
       </RegionSelectWrapper>
     </ComponentWrapper>
   );
