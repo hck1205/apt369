@@ -5,11 +5,12 @@ export const ComponentWrapper = styled.div`
   border-top: none;
 `;
 
-export const TableWrapper = styled.div<{ fixedTopValue: number | undefined }>`
+export const TableWrapper = styled.div`
   ul > li {
     display: flex;
-    margin: 15px 15px;
     gap: 20px;
+    height: 60px;
+    width: 100%;
   }
 `;
 
@@ -24,4 +25,49 @@ export const ApartmentInfoWrapper = styled.div`
   }
 `;
 
-export const FieldInfo = styled.div``;
+export const ContentWrapper = styled.div`
+  display: flex;
+
+  .fields-wrapper {
+    background-color: #f5f9fc;
+    transform: "unset";
+    display: inline-flex;
+
+    p {
+      min-width: 180px;
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+  }
+
+  .apt-wrapper {
+    .fields-wrapper {
+      p {
+        justify-content: flex-start;
+      }
+    }
+  }
+
+  .price-info-wrapper {
+    overflow-x: scroll;
+    width: 100%;
+
+    .row {
+      .price-wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .price {
+          min-width: 180px;
+          width: 100%;
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+        }
+      }
+    }
+  }
+`;

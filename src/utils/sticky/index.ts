@@ -25,8 +25,13 @@ const setSticky = (
 
 export const addSticky = (
   refObj: RefObject<HTMLElement> | null,
-  top: number,
   width: string
 ) => {
+  let top = 0;
+
+  if (refObj) {
+    top = refObj.current?.getBoundingClientRect().top || 0;
+  }
+
   return (e: Event) => setSticky(refObj, top, width);
 };
