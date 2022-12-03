@@ -5,6 +5,7 @@ import { RootState } from "@/store";
 import { setApartmentData } from "@/store/modules/apartment";
 import { ALL_FIELDS_FOR_TODAYS_TRANSACTION } from "@/constpack";
 import { useFetchAPTDataMutation } from "@/API";
+import { formatNumber, INTL_STYLE } from "@/utils";
 
 import TableHeader from "../tableHeader";
 import ConfigSetting from "../configSetting";
@@ -64,8 +65,10 @@ function TodaysTransactionTable({ tabData, index }: Props) {
           priceHeader.current.style.transform = "unset";
         } else {
           const y = pageYOffSet - OFF_SET_TOP_FROM_TABLE;
-          aptHeader.current.style.transform = `translateY(${y}px)`;
-          priceHeader.current.style.transform = `translateY(${y}px)`;
+          const translateY = `translateY(${y}px)`;
+
+          aptHeader.current.style.transform = translateY;
+          priceHeader.current.style.transform = translateY;
         }
       }
     };
@@ -145,19 +148,49 @@ function TodaysTransactionTable({ tabData, index }: Props) {
                         const gapAmount = `${field}_gap_amount`;
                         const gapPercentage = `${field}_gap_percentage`;
 
+                        const gapAmountValue = transaction[gapAmount];
+                        const gapPercentageValue = transaction[gapPercentage];
+
+                        const gapAmountValueStyle =
+                          gapAmountValue === "0"
+                            ? "neutral"
+                            : gapAmountValue > 0
+                            ? "green"
+                            : "red";
+
+                        const gapPercentageValueStyle =
+                          gapPercentageValue === "0"
+                            ? "neutral"
+                            : gapPercentageValue > 0
+                            ? "green"
+                            : "red";
+
                         return (
                           <div
                             key={`${field}-${index}`}
                             className="price-wrapper"
                           >
-                            <p className="price">{transaction[field]}</p>
+                            <p className="price">
+                              {formatNumber({
+                                value: transaction[field],
+                                type: INTL_STYLE.CURRENCY,
+                              })}
+                            </p>
+
                             {isNotDealAmount && (
                               <>
-                                <p className="price">
-                                  {transaction[gapAmount]}
+                                <p className={`price ${gapAmountValueStyle}`}>
+                                  {formatNumber({
+                                    value: gapAmountValue,
+                                    type: INTL_STYLE.CURRENCY,
+                                  })}
                                 </p>
-                                <p className="price">
-                                  {transaction[gapPercentage]}
+
+                                <p className={`percentage`}>
+                                  {formatNumber({
+                                    value: gapPercentageValue,
+                                    type: INTL_STYLE.PERCENTAGE,
+                                  })}
                                 </p>
                               </>
                             )}
